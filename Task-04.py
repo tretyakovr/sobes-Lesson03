@@ -12,3 +12,41 @@
 # числовое значение. Вызвать вторую функцию. В нее должна передаваться ссылка на
 # созданный файл. Во второй функции необходимо реализовать открытие файла и простой
 # построчный вывод содержимого. Вся программа должна запускаться по вызову первой функции.
+
+import os
+
+
+def first_func():
+    try:
+        file_txt = open('data.txt', 'x')
+
+    except FileExistsError:
+        print('Файл уже существует!')
+
+    else:
+        simple_str = 'simple_str'
+        list1 = [i for i in simple_str]
+        list2 = [str(i) for i in range(len(simple_str))]
+
+        for i in zip(list1, list2):
+            file_txt.write(f'{"".join(i)} \n')
+
+        file_txt.close()
+
+        second_func(file_txt)
+
+def second_func(file_name):
+    try:
+        file_txt = open(os.path.abspath(file_name.name), 'r')
+
+    except:
+        print('Ошибка открытия файла!')
+
+    else:
+        for line_str in file_txt:
+            print(line_str, end = '')
+
+        file_txt.close()
+
+
+first_func()
